@@ -430,13 +430,17 @@
   }
 
   @media (max-width: 820px) {
-    nav { padding: 16px 5%; }
+    nav { 
+      padding: 16px 5%; 
+      justify-content: center; /* Centraliza o conteúdo da nav no mobile */
+    }
     nav ul { display: none; }
     
     /* Adicionado para manter o logo em uma linha só */
     .brand {
       font-size: 1.15rem;
       white-space: nowrap;
+      text-align: center; /* Garante o texto centralizado */
     }
     
     .about { padding: 70px 5%; }
