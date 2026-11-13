@@ -230,6 +230,7 @@
     padding: 8px 14px;
     border: 1px solid var(--gold);
     box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    text-align: center;
   }
 
   .card-body {
@@ -304,18 +305,9 @@
     padding: 60px 5% 120px;
     animation: fadeIn 0.4s ease;
   }
-  .not-found.show {
-    display: block;
-  }
-  .not-found h3 {
-    font-size: 2rem;
-    margin-bottom: 16px;
-    font-weight: 400;
-  }
-  .not-found p {
-    color: rgba(20, 16, 12, 0.6);
-    margin-bottom: 32px;
-  }
+  .not-found.show { display: block; }
+  .not-found h3 { font-size: 2rem; margin-bottom: 16px; font-weight: 400; }
+  .not-found p { color: rgba(20, 16, 12, 0.6); margin-bottom: 32px; }
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
@@ -330,10 +322,7 @@
     justify-content: center;
     border-top: 1px solid rgba(197, 162, 106, 0.15);
   }
-  .about-content {
-    max-width: 800px; 
-    width: 100%;
-  }
+  .about-content { max-width: 800px; width: 100%; }
   .about .eyebrow { color: var(--amber); }
   .about h2 {
     font-size: clamp(2.2rem, 4.5vw, 3.4rem);
@@ -351,12 +340,7 @@
     -webkit-hyphens: auto;
     -ms-hyphens: auto;
   }
-  .about .stat-row { 
-    display: flex; 
-    gap: 60px; 
-    margin-top: 50px; 
-    flex-wrap: wrap;
-  }
+  .about .stat-row { display: flex; gap: 60px; margin-top: 50px; flex-wrap: wrap; }
   .about .stat b {
     font-family: 'Cormorant Garamond', serif;
     font-size: 2.8rem;
@@ -373,7 +357,7 @@
     font-weight: 500;
   }
 
-  /* CONTATO */
+  /* CONTATO E SUGESTÃO */
   .contact { max-width: 900px; margin: 0 auto; padding: 130px 5%; text-align: center; }
   .contact h2 {
     font-size: clamp(2.4rem, 5vw, 4rem);
@@ -422,50 +406,217 @@
   }
   footer .brand { font-size: 1.2rem; }
 
-  /* RESPONSIVIDADE */
+  /* =========================================
+     CHAT FLUTUANTE (FAQ INTELIGENTE)
+  ========================================= */
+  .chat-widget {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .chat-toggle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--amber);
+    border: 1px solid var(--gold);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s, background 0.3s;
+    position: relative;
+  }
+  .chat-toggle:hover {
+    transform: scale(1.05);
+    background: var(--gold-deep);
+    color: var(--ivory);
+  }
+  .chat-toggle::after {
+    content: 'Dúvidas?';
+    position: absolute;
+    right: 75px;
+    background: var(--ink);
+    color: var(--ivory);
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: all 0.3s;
+    pointer-events: none;
+  }
+  .chat-toggle:hover::after {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .chat-window {
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    width: 350px;
+    height: 500px;
+    max-height: calc(100vh - 120px);
+    background: #fff;
+    border: 1px solid var(--line);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .chat-window.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .chat-header {
+    background: var(--ink);
+    color: var(--ivory);
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--gold-deep);
+  }
+  .chat-header h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin: 0;
+  }
+  .chat-header span {
+    font-size: 0.7rem;
+    color: var(--amber);
+    display: block;
+    font-family: 'Inter', sans-serif;
+  }
+  .chat-close {
+    background: transparent;
+    border: none;
+    color: var(--ivory);
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .chat-body {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .message {
+    max-width: 85%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  .message.bot {
+    background: #fdfaf4;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-bottom-left-radius: 2px;
+    align-self: flex-start;
+  }
+  .message.user {
+    background: var(--ink);
+    color: var(--ivory);
+    border-bottom-right-radius: 2px;
+    align-self: flex-end;
+  }
+
+  .typing {
+    display: none;
+    font-size: 0.8rem;
+    color: #888;
+    font-style: italic;
+    padding-left: 4px;
+  }
+  .typing.show { display: block; }
+
+  .chat-options {
+    padding: 12px 20px;
+    background: #fff;
+    border-top: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  .chat-option-btn {
+    background: transparent;
+    border: 1px solid var(--gold-deep);
+    color: var(--gold-deep);
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .chat-option-btn:hover {
+    background: var(--gold-deep);
+    color: var(--ivory);
+  }
+
+  .chat-wa-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #25D366;
+    color: #fff;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+
+  /* RESPONSIVIDADE GERAL */
   @media (max-width: 1024px) {
-    .catalog {
-      grid-template-columns: repeat(2, 1fr);
-    }
+    .catalog { grid-template-columns: repeat(2, 1fr); }
   }
 
   @media (max-width: 820px) {
-    nav { 
-      padding: 16px 5%; 
-      justify-content: center;
-    }
+    nav { padding: 16px 5%; justify-content: center; }
     nav ul { display: none; }
-    
-    .brand {
-      font-size: 1.15rem;
-      white-space: nowrap;
-      text-align: center;
-    }
-    
+    .brand { font-size: 1.15rem; white-space: nowrap; text-align: center; }
     .about { padding: 70px 5%; }
-    
-    .about p { 
-      text-align: left; 
-      hyphens: none; 
-      -webkit-hyphens: none;
-      -ms-hyphens: none;
-      word-break: normal;
-      overflow-wrap: break-word;
-      font-size: 0.95rem;
-    }
-    
-    .about h2 {
-      font-size: 2.2rem;
-    }
-
-    .catalog { 
-      grid-template-columns: 1fr; 
-      padding: 0 5% 90px; 
-      gap: 24px; 
-    }
+    .about p { text-align: left; hyphens: none; -webkit-hyphens: none; -ms-hyphens: none; word-break: normal; overflow-wrap: break-word; font-size: 0.95rem; }
+    .about h2 { font-size: 2.2rem; }
+    .catalog { grid-template-columns: 1fr; padding: 0 5% 90px; gap: 24px; }
     .contact { padding: 90px 5%; }
     footer { padding: 36px 5%; flex-direction: column; text-align: center; }
     .about .stat-row { gap: 20px; justify-content: space-between; width: 100%; }
+    
+    .chat-window {
+      width: calc(100vw - 40px);
+      right: -10px;
+      bottom: 80px;
+      height: 450px;
+    }
+    .chat-toggle::after { display: none; }
   }
 </style>
 </head>
@@ -475,6 +626,7 @@
   <a href="#" class="brand">KADA SALES - EXCLUSIVA<span>.</span></a>
   <ul>
     <li><a href="#catalogo" class="navlink">Catálogo</a></li>
+    <li><a href="#sugerir" class="navlink">Sugerir</a></li>
     <li><a href="#sobre" class="navlink">Sobre</a></li>
     <li><a href="#contato" class="navlink">Contato</a></li>
   </ul>
@@ -499,7 +651,6 @@
   </div>
 
   <div class="catalog" id="catalogGrid">
-
     <article class="card" data-name="Fakhar Gold Lattafa">
       <div class="bottle">
         <div class="stock-badge">Só 1 no estoque</div>
@@ -509,8 +660,8 @@
         <div class="brandline">Lattafa</div>
         <h3>Fakhar Gold</h3>
         <p class="notes">Amadeirado oriental — tuberosa, âmbar, cashmeran e couro. Fixação longa, presença marcante.</p>
-        <div class="price"><small>Preço</small>R$ 260,00</div>
-        <button class="btn-outline buy" data-perfume="Fakhar Gold" data-preco="R$ 260,00">
+        <div class="price"><small>Preço</small>R$ 259,99</div>
+        <button class="btn-outline buy" data-perfume="Fakhar Gold" data-preco="R$ 259,99">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
           Comprar pelo WhatsApp
         </button>
@@ -526,8 +677,8 @@
         <div class="brandline">Lattafa</div>
         <h3>Yara Candy</h3>
         <p class="notes">Gourmand floral — caramelo de morango, gardenia, baunilha e âmbar. Doce, feminino, viciante.</p>
-        <div class="price"><small>Preço</small>R$ 260,00</div>
-        <button class="btn-outline buy" data-perfume="Yara Candy" data-preco="R$ 260,00">
+        <div class="price"><small>Preço</small>R$ 259,99</div>
+        <button class="btn-outline buy" data-perfume="Yara Candy" data-preco="R$ 259,99">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
           Comprar pelo WhatsApp
         </button>
@@ -543,16 +694,14 @@
         <div class="brandline">Al Wataniah</div>
         <h3>Sabah Al Ward</h3>
         <p class="notes">Oriental floral — tangerina, cacau, flor de laranjeira e baunilha. Quente, elegante, aconchegante.</p>
-        <div class="price"><small>Preço</small>R$ 240,00</div>
-        <button class="btn-outline buy" data-perfume="Sabah Al Ward" data-preco="R$ 240,00">
+        <div class="price"><small>Preço</small>R$ 239,99</div>
+        <button class="btn-outline buy" data-perfume="Sabah Al Ward" data-preco="R$ 239,99">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
           Comprar pelo WhatsApp
         </button>
       </div>
     </article>
 
-    <!-- NOVOS PERFUMES ADICIONADOS -->
-    
     <article class="card" data-name="Sabah Sugar Al Wataniah">
       <div class="bottle">
         <div class="stock-badge">Novidade</div>
@@ -564,23 +713,6 @@
         <p class="notes">Gourmand floral — caramelo, baunilha, frutas doces e âmbar. Aroma doce e envolvente.</p>
         <div class="price"><small>Preço</small>R$ 239,99</div>
         <button class="btn-outline buy" data-perfume="Sabah Sugar" data-preco="R$ 239,99">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-          Comprar pelo WhatsApp
-        </button>
-      </div>
-    </article>
-
-    <article class="card" data-name="Fakhar Black Lattafa">
-      <div class="bottle">
-        <div class="stock-badge">Novidade</div>
-        <img src="imagens-perfumes/fakhar-black.jpg" alt="Lattafa Fakhar Black 100ml" />
-      </div>
-      <div class="card-body">
-        <div class="brandline">Lattafa</div>
-        <h3>Fakhar Black</h3>
-        <p class="notes">Amadeirado especiado — bergamota, lavanda, especiarias, couro e âmbar. Clássico e imponente.</p>
-        <div class="price"><small>Preço</small>R$ 259,99</div>
-        <button class="btn-outline buy" data-perfume="Fakhar Black" data-preco="R$ 259,99">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
           Comprar pelo WhatsApp
         </button>
@@ -604,6 +736,142 @@
       </div>
     </article>
 
+    <article class="card" data-name="Qaed Al Fursan Lattafa">
+      <div class="bottle">
+        <div class="stock-badge">Chega dia 18-21</div>
+        <img src="imagens-perfumes/qaed-al-fursan.jpg" alt="Qaed Al Fursan Lattafa" />
+      </div>
+      <div class="card-body">
+        <div class="brandline">Lattafa</div>
+        <h3>Qaed Al Fursan</h3>
+        <p class="notes">Amadeirado frutado — abacaxi, bergamota, oud e âmbar. Aroma marcante e tropical.</p>
+        <div class="price"><small>Preço</small>R$ 189,99</div>
+        <button class="btn-outline buy" data-perfume="Qaed Al Fursan" data-preco="R$ 189,99" data-status="pre-venda">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          Comprar pelo WhatsApp
+        </button>
+      </div>
+    </article>
+
+    <article class="card" data-name="Qaed Al Fursan Unlimited Lattafa">
+      <div class="bottle">
+        <div class="stock-badge">Chega dia 20-23</div>
+        <img src="imagens-perfumes/qaed-al-fursan-unlimited.jpg" alt="Qaed Al Fursan Unlimited Lattafa" />
+      </div>
+      <div class="card-body">
+        <div class="brandline">Lattafa</div>
+        <h3>Qaed Al Fursan Unlimited</h3>
+        <p class="notes">Amadeirado intenso — especiarias, madeiras nobres e baunilha. Versão mais potente do clássico.</p>
+        <div class="price"><small>Preço</small>R$ 189,99</div>
+        <button class="btn-outline buy" data-perfume="Qaed Al Fursan Unlimited" data-preco="R$ 189,99" data-status="pre-venda">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          Comprar pelo WhatsApp
+        </button>
+      </div>
+    </article>
+
+    <article class="card" data-name="Ameerat Al Arab Asdaaf">
+      <div class="bottle">
+        <div class="stock-badge">Chega dia 16-19</div>
+        <img src="imagens-perfumes/ameerat-al-arab.jpg" alt="Ameerat Al Arab Asdaaf" />
+      </div>
+      <div class="card-body">
+        <div class="brandline">Asdaaf</div>
+        <h3>Ameerat Al Arab</h3>
+        <p class="notes">Floral frutado — frutas vermelhas, rosa, baunilha e almíscar. Feminino e sofisticado.</p>
+        <div class="price"><small>Preço</small>R$ 239,99</div>
+        <button class="btn-outline buy" data-perfume="Ameerat Al Arab" data-preco="R$ 239,99" data-status="pre-venda">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          Comprar pelo WhatsApp
+        </button>
+      </div>
+    </article>
+
+    <article class="card" data-name="Ameerati Al Wataniah">
+      <div class="bottle">
+        <div class="stock-badge">Chega dia 23-26</div>
+        <img src="imagens-perfumes/ameerati-al-wataniah.jph.webp" alt="Ameerati Al Wataniah" />
+      </div>
+      <div class="card-body">
+        <div class="brandline">Al Wataniah</div>
+        <h3>Ameerati</h3>
+        <p class="notes">Oriental floral — rosa, oud, âmbar e baunilha. Aroma clássico árabe com toque moderno.</p>
+        <div class="price"><small>Preço</small>R$ 194,99</div>
+        <button class="btn-outline buy" data-perfume="Ameerati" data-preco="R$ 194,99" data-status="pre-venda">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          Comprar pelo WhatsApp
+        </button>
+      </div>
+    </article>
+
+    <article class="card" data-name="Asad Lattafa">
+      <div class="bottle">
+        <div class="stock-badge">Disponível</div>
+        <img src="imagens-perfumes/asad.jpg" alt="Asad Lattafa" />
+      </div>
+      <div class="card-body">
+        <div class="brandline">Lattafa</div>
+        <h3>Asad</h3>
+        <p class="notes">Amadeirado intenso — pimenta preta, tabaco, couro e baunilha. Forte e marcante.</p>
+        <div class="price"><small>Preço</small>R$ 264,99</div>
+        <button class="btn-outline buy" data-perfume="Asad" data-preco="R$ 264,99">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          Comprar pelo WhatsApp
+        </button>
+      </div>
+    </article>
+
+    <article class="card" data-name="Durrat Al Aroos Al Wataniah">
+      <div class="bottle">
+        <div class="stock-badge">Chega dia 15-19</div>
+        <img src="imagens-perfumes/durrat-all-aroos.jph.jpg" alt="Durrat Al Aroos Al Wataniah" />
+      </div>
+      <div class="card-body">
+        <div class="brandline">Al Wataniah</div>
+        <h3>Durrat Al Aroos</h3>
+        <p class="notes">Floral oriental — jasmim, rosa, baunilha e âmbar. Elegante e feminino.</p>
+        <div class="price"><small>Preço</small>R$ 189,99</div>
+        <button class="btn-outline buy" data-perfume="Durrat Al Aroos" data-preco="R$ 189,99" data-status="pre-venda">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          Comprar pelo WhatsApp
+        </button>
+      </div>
+    </article>
+
+    <article class="card" data-name="Club de Nuit Intense Man Armaf">
+      <div class="bottle">
+        <div class="stock-badge">Chega domingo</div>
+        <img src="imagens-perfumes/club-de-nuit-intense-man.jpg" alt="Club de Nuit Intense Man Armaf" />
+      </div>
+      <div class="card-body">
+        <div class="brandline">Armaf</div>
+        <h3>Club de Nuit Intense Man</h3>
+        <p class="notes">Amadeirado frutado — abacaxi, bétula, limão e almíscar. O famoso "Creed Aventus" acessível.</p>
+        <div class="price"><small>Preço</small>R$ 279,99</div>
+        <button class="btn-outline buy" data-perfume="Club de Nuit Intense Man" data-preco="R$ 279,99" data-status="pre-venda">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          Comprar pelo WhatsApp
+        </button>
+      </div>
+    </article>
+
+    <article class="card" data-name="Sabah Al Ward Valentine Al Wataniah">
+      <div class="bottle">
+        <div class="stock-badge">Chega dia 18-21</div>
+        <img src="imagens-perfumes/sabah-valentine.jpg" alt="Sabah Al Ward Valentine Al Wataniah" />
+      </div>
+      <div class="card-body">
+        <div class="brandline">Al Wataniah</div>
+        <h3>Sabah Al Ward Valentine</h3>
+        <p class="notes">Floral gourmand — rosas, frutas vermelhas, chocolate e baunilha. Edição especial romântica.</p>
+        <div class="price"><small>Preço</small>R$ 239,99</div>
+        <button class="btn-outline buy" data-perfume="Sabah Al Ward Valentine" data-preco="R$ 239,99" data-status="pre-venda">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          Comprar pelo WhatsApp
+        </button>
+      </div>
+    </article>
+
   </div>
 
   <div class="not-found" id="notFound">
@@ -618,13 +886,27 @@
   <div class="about-content">
     <div class="eyebrow">A curadoria</div>
     <h2>A novidade do <em>sertão</em>.</h2>
-    <p>A Perfumaria Kada Sales Exclusiva nasceu pra trazer o que há de mais sofisticado na perfumaria mundial direto pra São José do Egito e região. Enquanto todo mundo usa os perfumes de sempre, a gente traz a intensidade e a fixação dos árabes — algo novo, exclusivo e marcante pro nosso Pernambuco.</p>
+    <p>A Perfumaria Kada Sales Exclusiva nasceu pra trazer o que há de mais sofisticado na perfumaria mundial direto pra São José do Egito. Enquanto todo mundo usa os perfumes de sempre, a gente traz a intensidade e a fixação dos árabes — algo novo, exclusivo e marcante pro nosso Pernambuco.</p>
     <p>Cada frasco é testado e selecionado a dedo. Aqui você não compra só um perfume: você garante uma fragrância rara por essas bandas, que gruda na pele o dia inteiro e faz todo mundo virar pra trás pra perguntar o que você está usando.</p>
     <div class="stat-row">
-      <div class="stat"><b>6</b><span>Perfumes</span></div>
+      <div class="stat"><b>13</b><span>Perfumes</span></div>
       <div class="stat"><b>10H+</b><span>Fixação</span></div>
       <div class="stat"><b>100%</b><span>Originais</span></div>
     </div>
+  </div>
+</section>
+
+<section class="contact" id="sugerir">
+  <div class="eyebrow">Sua opinião importa</div>
+  <h2>Qual perfume você <em>quer ver aqui?</em></h2>
+  <p>Deixe sua sugestão abaixo e envie direto para o nosso WhatsApp. Vamos adorar saber qual fragrância você procura!</p>
+  
+  <div style="max-width: 400px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px;">
+    <input type="text" id="suggestInput" class="search-input" placeholder="Digite o nome do perfume..." autocomplete="off" style="text-align: center;" />
+    <button class="btn-solid" id="btnSugerir" style="width: 100%;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+      Enviar Sugestão pelo WhatsApp
+    </button>
   </div>
 </section>
 
@@ -645,23 +927,82 @@
   <div>© 2026 Perfumaria Kada Sales Exclusiva — Todos os direitos reservados</div>
 </footer>
 
+<!-- CHAT FLUTUANTE -->
+<div class="chat-widget" id="chatWidget">
+  <button class="chat-toggle" id="chatToggle">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c5.5 0 10 3.58 10 8s-4.5 8-10 8c-1.24 0-2.43-.18-3.53-.5C5.55 21 2 21 2 21c2.33-2.33 2.7-3.9 2.75-4.5C3.05 15.07 2 13.13 2 11c0-4.42 4.5-8 10-8zm-1.13 9.13l-1.7 1.7-1.7-1.7-1.41 1.41 1.7 1.7-1.7 1.7 1.41 1.41 1.7-1.7 1.7 1.7 1.41-1.41-1.7-1.7 1.7-1.7-1.41-1.41z"/></svg>
+  </button>
+  
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+      <div>
+        <h4>Dúvidas?</h4>
+        <span>Respondo em segundos</span>
+      </div>
+      <button class="chat-close" id="chatClose">&times;</button>
+    </div>
+    
+    <div class="chat-body" id="chatBody">
+      <div class="message bot">Oi! Sou o assistente da Kada. Posso te ajudar com alguma dúvida antes de você comprar? É só clicar em uma das opções abaixo.</div>
+      <div class="typing" id="typingIndicator">digitando...</div>
+    </div>
+
+    <div class="chat-options" id="chatOptions">
+      <button class="chat-option-btn" data-question="entrega">Como funciona a entrega?</button>
+      <button class="chat-option-btn" data-question="originais">São originais?</button>
+      <button class="chat-option-btn" data-question="fixacao">Quanto tempo dura?</button>
+      <button class="chat-option-btn" data-question="pagamento">Como pago?</button>
+      <button class="chat-option-btn" data-question="pre-venda">E os que ainda vão chegar?</button>
+      <button class="chat-option-btn" data-question="outro">Outra dúvida...</button>
+    </div>
+  </div>
+</div>
+
 <script>
   const WHATSAPP = "558799988907"; // Número da sua tia
 
+  // Lógica do WhatsApp Geral
   const mensagemGeral = "Oi! Vim pelo site da Perfumaria Kada e queria saber mais sobre os perfumes.";
   document.getElementById('whats-geral').href =
     "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(mensagemGeral);
 
+  // Lógica dinâmica dos botões de compra
   document.querySelectorAll('.buy').forEach(function (btn) {
     btn.addEventListener('click', function () {
       const nome  = btn.dataset.perfume;
       const preco = btn.dataset.preco;
-      const msg = "Oi! Vim pelo site da Perfumaria Kada e quero comprar o " + nome + " (" + preco + "). Ainda está disponível?";
+      const status = btn.dataset.status;
+      
+      let msg = "";
+      
+      if (status === "pre-venda") {
+        msg = "Oi! Vim pelo site da Perfumaria Kada e quero encomendar o " + nome + " (" + preco + "). Quando ele chega?";
+      } else {
+        msg = "Oi! Vim pelo site da Perfumaria Kada e quero comprar o " + nome + " (" + preco + "). Ainda está disponível?";
+      }
+
       const url = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg);
       window.open(url, "_blank");
     });
   });
 
+  // Lógica da Sugestão
+  document.getElementById('btnSugerir').addEventListener('click', function () {
+    const sugestao = document.getElementById('suggestInput').value.trim();
+    
+    if (sugestao === "") {
+      alert("Por favor, digite o nome do perfume que você deseja sugerir!");
+      return;
+    }
+
+    const msg = "Oi! Vim pelo site da Perfumaria Kada e queria sugerir o perfume: " + sugestao + ". Vocês conseguem trazer?";
+    const url = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg);
+    window.open(url, "_blank");
+    
+    document.getElementById('suggestInput').value = "";
+  });
+
+  // Lógica da Busca
   const searchInput = document.getElementById('searchInput');
   const cards = document.querySelectorAll('.catalog .card');
   const catalogGrid = document.getElementById('catalogGrid');
@@ -697,6 +1038,102 @@
     searchInput.value = "";
     filterCatalog();
     searchInput.focus();
+  });
+
+  // ==========================================
+  // LÓGICA DO CHAT FLUTUANTE
+  // ==========================================
+  const chatToggle = document.getElementById('chatToggle');
+  const chatWindow = document.getElementById('chatWindow');
+  const chatClose = document.getElementById('chatClose');
+  const chatBody = document.getElementById('chatBody');
+  const chatOptions = document.getElementById('chatOptions');
+  const typingIndicator = document.getElementById('typingIndicator');
+
+  // Abrir e Fechar
+  chatToggle.addEventListener('click', () => {
+    chatWindow.classList.toggle('open');
+  });
+  chatClose.addEventListener('click', () => {
+    chatWindow.classList.remove('open');
+  });
+
+  // Respostas do Bot
+  const respostas = {
+    'entrega': "Entregamos em São José do Egito. Perfumes marcados como 'Disponível' saem no mesmo dia ou no dia seguinte. Os da pré-venda são entregues logo após a data que está no card.",
+    'originais': "Sim! Trabalhamos apenas com marcas originais e importadas (Lattafa, Al Wataniah, Armaf, etc). Cada frasco é verificado antes de sair.",
+    'fixacao': "Os perfumes árabes são famosos pela fixação. A maioria fica de 8h a 12h na pele, e duram dias na roupa. São perfeitos pro calor.",
+    'pagamento': "Aceitamos Pix, dinheiro e cartão (com taxa da maquininha). O acerto é feito diretamente pelo WhatsApp no momento do pedido.",
+    'pre-venda': "Sim, pode encomendar! Basta clicar em 'Comprar' no perfume que tem a data de chegada. Você garante o seu antes de esgotar. A mensagem já vai pronta pro WhatsApp.",
+    'outro': "Sem problemas! Me manda uma mensagem no WhatsApp que a Kada te responde rapidinho."
+  };
+
+  // Clique nos botões de opção
+  document.querySelectorAll('.chat-option-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const questionKey = this.dataset.question;
+      const questionText = this.innerText;
+
+      // Se for "Outra dúvida", manda direto pro WhatsApp
+      if (questionKey === 'outro') {
+        window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent("Oi! Vim pelo site e tenho uma dúvida."), "_blank");
+        return;
+      }
+
+      // Adiciona a pergunta do usuário no chat
+      const userMsg = document.createElement('div');
+      userMsg.className = 'message user';
+      userMsg.innerText = questionText;
+      chatBody.appendChild(userMsg);
+
+      // Esconde as opções
+      chatOptions.style.display = 'none';
+      chatBody.scrollTop = chatBody.scrollHeight;
+
+      // Mostra o indicador de digitando
+      typingIndicator.classList.add('show');
+      chatBody.scrollTop = chatBody.scrollHeight;
+
+      // Simula tempo de resposta (1.5 segundos)
+      setTimeout(() => {
+        typingIndicator.classList.remove('show');
+        
+        // Adiciona a resposta do bot
+        const botMsg = document.createElement('div');
+        botMsg.className = 'message bot';
+        botMsg.innerText = respostas[questionKey];
+        chatBody.appendChild(botMsg);
+
+        // Se for a resposta de "outro", cria o botão do WhatsApp
+        if (questionKey === 'outro' || questionKey === 'entrega') {
+          // Cria o botão de WhatsApp no fim
+          const waBtn = document.createElement('a');
+          waBtn.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent("Oi! Vim pelo site e tenho uma dúvida.");
+          waBtn.className = 'chat-wa-btn';
+          waBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Falar com a Kada`;
+          chatBody.appendChild(waBtn);
+        }
+
+        // Adiciona um botão para voltar ao menu
+        const resetBtn = document.createElement('button');
+        resetBtn.className = 'chat-option-btn';
+        resetBtn.style.marginTop = '10px';
+        resetBtn.style.textAlign = 'center';
+        resetBtn.innerText = 'Voltar às opções';
+        resetBtn.onclick = () => {
+          chatBody.innerHTML = `
+            <div class="message bot">Oi! Posso te ajudar com mais alguma coisa?</div>
+            <div class="typing" id="typingIndicator">digitando...</div>
+          `;
+          chatOptions.style.display = 'flex';
+          // Recarrega a referencia do typing
+          window.typingIndicator = document.getElementById('typingIndicator'); 
+        };
+        chatBody.appendChild(resetBtn);
+
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 1500);
+    });
   });
 </script>
 
