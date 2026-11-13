@@ -16,6 +16,23 @@
     --gold-deep: #9e7a42;
     --amber: #dfb678;
     --line: rgba(197, 162, 106, 0.25);
+    
+    /* Cores para os componentes específicos */
+    --card-bg: #fdfaf4;
+    --card-text: #14100c;
+    --card-muted: rgba(20, 16, 12, 0.65);
+    --nav-bg: rgba(247, 242, 233, 0.85);
+  }
+
+  /* VARIÁVEIS DO DARK MODE */
+  body.dark-mode {
+    --ink: #f7f2e9;
+    --ivory: #14100c;
+    --card-bg: #1a1612;
+    --card-text: #f7f2e9;
+    --card-muted: rgba(247, 242, 233, 0.6);
+    --nav-bg: rgba(20, 16, 12, 0.85);
+    --line: rgba(197, 162, 106, 0.15);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -27,6 +44,7 @@
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+    transition: background 0.4s ease, color 0.4s ease;
   }
 
   h1, h2, h3, .serif {
@@ -54,10 +72,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(247, 242, 233, 0.85);
+    background: var(--nav-bg);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--line);
+    transition: background 0.4s ease;
   }
   .brand {
     font-family: 'Cormorant Garamond', serif;
@@ -66,6 +85,7 @@
     letter-spacing: 0.1em;
     color: var(--ink);
     text-decoration: none;
+    transition: color 0.4s ease;
   }
   .brand span { color: var(--gold-deep); }
   nav ul { list-style: none; display: flex; gap: 38px; }
@@ -91,6 +111,7 @@
     padding: 140px 5% 80px;
     position: relative;
     background: radial-gradient(ellipse at 50% 80%, rgba(197, 162, 106, 0.12), transparent 55%), var(--ivory);
+    transition: background 0.4s ease;
   }
   .eyebrow {
     font-size: 0.75rem;
@@ -110,8 +131,9 @@
   .hero p {
     max-width: 520px;
     font-size: 1.05rem;
-    color: rgba(20, 16, 12, 0.7);
+    color: var(--card-muted);
     margin-bottom: 48px;
+    transition: color 0.4s ease;
   }
   .cta {
     display: inline-block;
@@ -163,11 +185,11 @@
     font-family: 'Inter', sans-serif;
     font-size: 0.95rem;
     color: var(--ink);
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, color 0.4s;
     outline: none;
   }
   .search-input::placeholder {
-    color: rgba(20, 16, 12, 0.4);
+    color: var(--card-muted);
     letter-spacing: 0.05em;
   }
   .search-input:focus {
@@ -185,11 +207,11 @@
     justify-content: start;
   }
   .card {
-    background: #fdfaf4;
+    background: var(--card-bg);
     border: 1px solid var(--line);
     overflow: hidden;
     position: relative;
-    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    transition: transform 0.5s ease, box-shadow 0.5s ease, background 0.4s ease;
     display: flex;
     flex-direction: column;
   }
@@ -220,7 +242,7 @@
     top: 16px;
     left: 16px;
     z-index: 2;
-    background: var(--ink);
+    background: #14100c;
     color: var(--amber);
     font-family: 'Inter', sans-serif;
     font-size: 0.65rem;
@@ -252,12 +274,15 @@
     font-weight: 500;
     line-height: 1.15;
     margin-bottom: 14px;
+    color: var(--ink);
+    transition: color 0.4s ease;
   }
   .card-body .notes {
     font-size: 0.9rem;
-    color: rgba(20, 16, 12, 0.65);
+    color: var(--card-muted);
     margin-bottom: 22px;
     flex: 1;
+    transition: color 0.4s ease;
   }
   .card-body .price {
     font-family: 'Cormorant Garamond', serif;
@@ -265,13 +290,14 @@
     color: var(--ink);
     margin-bottom: 20px;
     font-weight: 600;
+    transition: color 0.4s ease;
   }
   .card-body .price small {
     font-family: 'Inter', sans-serif;
     font-size: 0.7rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: rgba(20, 16, 12, 0.45);
+    color: var(--card-muted);
     display: block;
     margin-bottom: 4px;
     font-weight: 500;
@@ -307,7 +333,7 @@
   }
   .not-found.show { display: block; }
   .not-found h3 { font-size: 2rem; margin-bottom: 16px; font-weight: 400; }
-  .not-found p { color: rgba(20, 16, 12, 0.6); margin-bottom: 32px; }
+  .not-found p { color: var(--card-muted); margin-bottom: 32px; }
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
@@ -315,13 +341,17 @@
 
   /* SOBRE */
   .about {
-    background: var(--ink);
-    color: var(--ivory);
+    background: #14100c;
+    color: #f7f2e9;
     padding: 110px 5%;
     display: flex;
     justify-content: center;
     border-top: 1px solid rgba(197, 162, 106, 0.15);
+    transition: background 0.4s ease;
   }
+  /* Ajuste do sobre no dark mode para não sumir com o contraste */
+  body.dark-mode .about { background: #1a1612; }
+
   .about-content { max-width: 800px; width: 100%; }
   .about .eyebrow { color: var(--amber); }
   .about h2 {
@@ -366,7 +396,7 @@
     margin: 18px 0 28px;
   }
   .contact h2 em { font-style: italic; color: var(--gold-deep); }
-  .contact p { color: rgba(20, 16, 12, 0.65); max-width: 520px; margin: 0 auto 44px; }
+  .contact p { color: var(--card-muted); max-width: 520px; margin: 0 auto 44px; }
   .contact-buttons { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
   
   .btn-solid {
@@ -387,10 +417,10 @@
   }
   .btn-solid:hover { 
     background: var(--amber); 
-    color: var(--ink); 
+    color: var(--ivory); 
     border-color: var(--amber);
   }
-  .btn-solid:hover svg { fill: var(--ink); }
+  .btn-solid:hover svg { fill: var(--ivory); }
 
   /* FOOTER */
   footer {
@@ -402,9 +432,46 @@
     flex-wrap: wrap;
     gap: 20px;
     font-size: 0.8rem;
-    color: rgba(20, 16, 12, 0.5);
+    color: var(--card-muted);
+    transition: color 0.4s ease;
   }
   footer .brand { font-size: 1.2rem; }
+
+  /* =========================================
+     BOTÃO DARK MODE
+  ========================================= */
+  .theme-toggle {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 1000;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--amber);
+    border: 1px solid var(--gold);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s, background 0.3s, color 0.3s;
+  }
+  .theme-toggle:hover {
+    transform: scale(1.05);
+    background: var(--gold-deep);
+    color: var(--ivory);
+  }
+  .theme-toggle svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+  }
+  /* Troca de ícones baseado no dark mode */
+  .theme-toggle .icon-sun { display: none; }
+  body.dark-mode .theme-toggle .icon-sun { display: block; }
+  body.dark-mode .theme-toggle .icon-moon { display: none; }
 
   /* =========================================
      CHAT FLUTUANTE (FAQ INTELIGENTE)
@@ -429,7 +496,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s, background 0.3s;
+    transition: transform 0.3s, background 0.3s, color 0.3s;
     position: relative;
   }
   .chat-toggle:hover {
@@ -464,7 +531,7 @@
     width: 350px;
     height: 500px;
     max-height: calc(100vh - 120px);
-    background: #fff;
+    background: var(--ivory);
     border: 1px solid var(--line);
     box-shadow: 0 12px 40px rgba(0,0,0,0.15);
     display: flex;
@@ -483,8 +550,8 @@
   }
 
   .chat-header {
-    background: var(--ink);
-    color: var(--ivory);
+    background: #14100c;
+    color: #f7f2e9;
     padding: 16px 20px;
     display: flex;
     justify-content: space-between;
@@ -506,7 +573,7 @@
   .chat-close {
     background: transparent;
     border: none;
-    color: var(--ivory);
+    color: #f7f2e9;
     font-size: 1.5rem;
     cursor: pointer;
     line-height: 1;
@@ -516,10 +583,11 @@
     flex: 1;
     padding: 20px;
     overflow-y: auto;
-    background: #f9f9f9;
+    background: var(--card-bg);
     display: flex;
     flex-direction: column;
     gap: 12px;
+    transition: background 0.4s ease;
   }
   
   .message {
@@ -530,11 +598,14 @@
     line-height: 1.4;
   }
   .message.bot {
-    background: #fdfaf4;
+    background: var(--ivory);
     color: var(--ink);
     border: 1px solid var(--line);
     border-bottom-left-radius: 2px;
     align-self: flex-start;
+  }
+  body.dark-mode .message.bot {
+    background: #1a1612;
   }
   .message.user {
     background: var(--ink);
@@ -546,7 +617,7 @@
   .typing {
     display: none;
     font-size: 0.8rem;
-    color: #888;
+    color: var(--card-muted);
     font-style: italic;
     padding-left: 4px;
   }
@@ -554,13 +625,14 @@
 
   .chat-options {
     padding: 12px 20px;
-    background: #fff;
-    border-top: 1px solid #eee;
+    background: var(--ivory);
+    border-top: 1px solid var(--line);
     display: flex;
     flex-direction: column;
     gap: 8px;
     max-height: 200px;
     overflow-y: auto;
+    transition: background 0.4s ease;
   }
   .chat-option-btn {
     background: transparent;
@@ -617,6 +689,18 @@
       height: 450px;
     }
     .chat-toggle::after { display: none; }
+    
+    /* Ajustes para o botão de tema não encavalar no celular */
+    .theme-toggle {
+      bottom: 24px;
+      left: 24px;
+      width: 50px;
+      height: 50px;
+    }
+    .chat-toggle {
+      width: 50px;
+      height: 50px;
+    }
   }
 </style>
 </head>
@@ -927,6 +1011,12 @@
   <div>© 2026 Perfumaria Kada Sales Exclusiva — Todos os direitos reservados</div>
 </footer>
 
+<!-- BOTÃO DARK MODE -->
+<button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
+  <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="icon-sun" viewBox="0 0 24 24"><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></svg>
+</button>
+
 <!-- CHAT FLUTUANTE -->
 <div class="chat-widget" id="chatWidget">
   <button class="chat-toggle" id="chatToggle">
@@ -960,6 +1050,25 @@
 
 <script>
   const WHATSAPP = "558799988907"; // Número da sua tia
+
+  // LÓGICA DO TEMA CLARO/ESCURO
+  const themeToggle = document.getElementById('themeToggle');
+  
+  // Verifica se o usuário já tinha escolhido o dark mode antes
+  if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark-mode');
+  }
+
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    
+    // Salva a escolha no navegador
+    if (document.body.classList.contains('dark-mode')) {
+      localStorage.setItem('theme', 'dark');
+    } else {
+      localStorage.setItem('theme', 'light');
+    }
+  });
 
   // Lógica do WhatsApp Geral
   const mensagemGeral = "Oi! Vim pelo site da Perfumaria Kada e queria saber mais sobre os perfumes.";
