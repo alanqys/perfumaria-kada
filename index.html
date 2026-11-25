@@ -10,26 +10,35 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #14100c;
-    --ivory: #f7f2e9;
-    --gold: #c5a26a;
-    --gold-deep: #9e7a42;
-    --amber: #dfb678;
-    --line: rgba(197, 162, 106, 0.25);
-    --card-bg: #fdfaf4;
-    --card-text: #14100c;
-    --card-muted: rgba(20, 16, 12, 0.65);
-    --nav-bg: rgba(247, 242, 233, 0.85);
+    /* Paleta Base - Fundo Claro */
+    --ink: #101010;
+    --ivory: #ffffff;
+    --card-bg: #f9f9f9;
+    --card-muted: rgba(16, 16, 16, 0.6);
+    --nav-bg: rgba(255, 255, 255, 0.9);
+    --line: rgba(16, 16, 16, 0.1);
+    
+    /* Cores da Marca */
+    --wine: #101010; /* Base usada para contrastes escuros */
+    --coral: #C8FF00; /* Substituí o coral pelo verde-limão */
+    --gold: #101010; /* O dourado foi removido, virou preto/limão */
+    
+    /* Dark Mode Base */
+    --dark-bg: #101010;
+    --dark-card: #1a1a1a;
+    --dark-text: #ffffff;
+    --dark-muted: rgba(255, 255, 255, 0.7);
+    --dark-nav: rgba(16, 16, 16, 0.9);
   }
 
   body.dark-mode {
-    --ink: #f7f2e9;
-    --ivory: #14100c;
-    --card-bg: #1a1612;
-    --card-text: #f7f2e9;
-    --card-muted: rgba(247, 242, 233, 0.6);
-    --nav-bg: rgba(20, 16, 12, 0.85);
-    --line: rgba(197, 162, 106, 0.15);
+    --ink: #ffffff;
+    --ivory: var(--dark-bg);
+    --card-bg: var(--dark-card);
+    --card-text: var(--dark-text);
+    --card-muted: var(--dark-muted);
+    --nav-bg: var(--dark-nav);
+    --line: rgba(200, 255, 0, 0.15);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -56,10 +65,11 @@
     inset: 0;
     pointer-events: none;
     z-index: 9999;
-    opacity: 0.035;
+    opacity: 0.02;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
+  /* NAVEGAÇÃO */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -83,7 +93,7 @@
     text-decoration: none;
     transition: color 0.4s ease;
   }
-  .brand span { color: var(--gold-deep); }
+  .brand span { color: var(--coral); }
   nav ul { list-style: none; display: flex; gap: 38px; }
   nav a.navlink {
     text-decoration: none;
@@ -94,8 +104,9 @@
     transition: color 0.3s;
     font-weight: 500;
   }
-  nav a.navlink:hover { color: var(--gold-deep); }
+  nav a.navlink:hover { color: var(--coral); }
 
+  /* HERO */
   .hero {
     min-height: 100vh;
     display: flex;
@@ -105,24 +116,28 @@
     text-align: center;
     padding: 140px 5% 80px;
     position: relative;
-    background: radial-gradient(ellipse at 50% 80%, rgba(197, 162, 106, 0.12), transparent 55%), var(--ivory);
+    background: radial-gradient(ellipse at 50% 80%, rgba(200, 255, 0, 0.08), transparent 55%), var(--ivory);
     transition: background 0.4s ease;
   }
   .eyebrow {
     font-size: 0.75rem;
     letter-spacing: 0.35em;
     text-transform: uppercase;
-    color: var(--gold-deep);
+    color: var(--wine);
     margin-bottom: 24px;
-    font-weight: 500;
+    font-weight: 600;
   }
+  body.dark-mode .eyebrow { color: var(--coral); }
+  
   .hero h1 {
     font-size: clamp(3rem, 9vw, 7.5rem);
     line-height: 0.95;
     font-weight: 400;
     margin-bottom: 28px;
   }
-  .hero h1 em { font-style: italic; color: var(--gold-deep); }
+  .hero h1 em { font-style: italic; color: var(--wine); }
+  body.dark-mode .hero h1 em { color: var(--coral); }
+  
   .hero p {
     max-width: 520px;
     font-size: 1.05rem;
@@ -133,36 +148,52 @@
   .cta {
     display: inline-block;
     padding: 16px 44px;
-    border: 1px solid var(--gold-deep);
-    color: var(--gold-deep);
+    border: 1px solid var(--wine);
+    color: var(--wine);
     text-decoration: none;
     font-size: 0.8rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     transition: all 0.4s ease;
     background: transparent;
-    font-weight: 500;
+    font-weight: 600;
   }
-  .cta:hover { background: var(--gold-deep); color: var(--ivory); }
+  .cta:hover { 
+    background: var(--wine); 
+    color: #fff; 
+    border-color: var(--wine);
+  }
+  body.dark-mode .cta {
+    border-color: var(--coral);
+    color: var(--coral);
+  }
+  body.dark-mode .cta:hover {
+    background: var(--coral);
+    color: #101010;
+  }
   
   .scroll-hint {
     position: absolute;
     bottom: 40px;
     font-size: 0.7rem;
     letter-spacing: 0.3em;
-    color: var(--gold-deep);
+    color: var(--wine);
     animation: float 2.4s ease-in-out infinite;
-    font-weight: 500;
+    font-weight: 600;
   }
+  body.dark-mode .scroll-hint { color: var(--coral); }
+  
   @keyframes float {
     0%, 100% { transform: translateY(0); opacity: 0.6; }
     50% { transform: translateY(8px); opacity: 1; }
   }
 
+  /* SEÇÕES GERAIS */
   .section-head { text-align: center; padding: 80px 5% 40px; }
   .section-head .eyebrow { margin-bottom: 16px; }
   .section-head h2 { font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 400; margin-bottom: 30px; }
 
+  /* BUSCA */
   .search-container {
     max-width: 500px;
     margin: 0 auto 50px;
@@ -186,9 +217,13 @@
     letter-spacing: 0.05em;
   }
   .search-input:focus {
-    border-color: var(--gold-deep);
+    border-color: var(--wine);
+  }
+  body.dark-mode .search-input:focus {
+    border-color: var(--coral);
   }
 
+  /* CATÁLOGO */
   .catalog {
     max-width: 1280px;
     margin: 0 auto;
@@ -206,10 +241,11 @@
     transition: transform 0.5s ease, box-shadow 0.5s ease, background 0.4s ease;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 10px 30px -15px rgba(0,0,0,0.05);
   }
   .card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 24px 60px -20px rgba(20, 16, 12, 0.15);
+    box-shadow: 0 24px 60px -20px rgba(0,0,0,0.15);
   }
   .bottle {
     aspect-ratio: 4 / 5;
@@ -234,17 +270,22 @@
     top: 16px;
     left: 16px;
     z-index: 2;
-    background: #14100c;
-    color: var(--amber);
+    background: #101010;
+    color: var(--coral);
     font-family: 'Inter', sans-serif;
     font-size: 0.65rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     font-weight: 600;
     padding: 8px 14px;
-    border: 1px solid var(--gold);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    border: 1px solid var(--coral);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     text-align: center;
+  }
+  body.dark-mode .stock-badge {
+    background: var(--coral);
+    color: #101010;
+    border: none;
   }
 
   .card-body {
@@ -257,10 +298,14 @@
     font-size: 0.7rem;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: var(--gold-deep);
+    color: var(--coral);
     margin-bottom: 10px;
-    font-weight: 600;
+    font-weight: 700;
   }
+  body:not(.dark-mode) .card-body .brandline {
+    color: var(--ink); /* No light mode, esse texto fica escuro para não sumir no branco */
+  }
+  
   .card-body h3 {
     font-size: 1.85rem;
     font-weight: 500;
@@ -281,7 +326,7 @@
     font-size: 1.5rem;
     color: var(--ink);
     margin-bottom: 20px;
-    font-weight: 600;
+    font-weight: 700;
     transition: color 0.4s ease;
   }
   .card-body .price small {
@@ -311,11 +356,12 @@
     cursor: pointer;
     background: transparent;
     font-family: 'Inter', sans-serif;
-    font-weight: 500;
+    font-weight: 600;
   }
   .btn-outline:hover { background: var(--ink); color: var(--ivory); }
   .btn-outline:hover svg { fill: var(--ivory); }
 
+  /* MENSAGEM DE NÃO ENCONTRADO */
   .not-found {
     display: none;
     text-align: center;
@@ -330,28 +376,29 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
+  /* SOBRE */
   .about {
-    background: #14100c;
-    color: #f7f2e9;
+    background: var(--wine);
+    color: #ffffff;
     padding: 110px 5%;
     display: flex;
     justify-content: center;
-    border-top: 1px solid rgba(197, 162, 106, 0.15);
+    border-top: 1px solid rgba(200, 255, 0, 0.15);
     transition: background 0.4s ease;
   }
-  body.dark-mode .about { background: #1a1612; }
+  body.dark-mode .about { background: #000000; }
 
   .about-content { max-width: 800px; width: 100%; }
-  .about .eyebrow { color: var(--amber); }
+  .about .eyebrow { color: var(--coral); }
   .about h2 {
     font-size: clamp(2.2rem, 4.5vw, 3.4rem);
     line-height: 1.05;
     margin: 18px 0 32px;
     font-weight: 400;
   }
-  .about h2 em { font-style: italic; color: var(--amber); }
+  .about h2 em { font-style: italic; color: var(--coral); }
   .about p { 
-    color: rgba(247, 242, 233, 0.7); 
+    color: rgba(255, 255, 255, 0.8); 
     margin-bottom: 20px; 
     font-size: 1rem; 
     text-align: justify;
@@ -363,7 +410,7 @@
   .about .stat b {
     font-family: 'Cormorant Garamond', serif;
     font-size: 2.8rem;
-    color: var(--amber);
+    color: var(--coral);
     display: block;
     line-height: 1;
     margin-bottom: 4px;
@@ -372,10 +419,11 @@
     font-size: 0.72rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(247, 242, 233, 0.5);
+    color: rgba(255, 255, 255, 0.6);
     font-weight: 500;
   }
 
+  /* CONTATO E SUGESTÃO */
   .contact { max-width: 900px; margin: 0 auto; padding: 130px 5%; text-align: center; }
   .contact h2 {
     font-size: clamp(2.4rem, 5vw, 4rem);
@@ -383,7 +431,9 @@
     line-height: 1.05;
     margin: 18px 0 28px;
   }
-  .contact h2 em { font-style: italic; color: var(--gold-deep); }
+  .contact h2 em { font-style: italic; color: var(--wine); }
+  body.dark-mode .contact h2 em { color: var(--coral); }
+  
   .contact p { color: var(--card-muted); max-width: 520px; margin: 0 auto 44px; }
   .contact-buttons { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
   
@@ -393,24 +443,33 @@
     justify-content: center;
     gap: 10px;
     padding: 16px 44px;
-    background: var(--ink);
-    color: var(--amber);
-    border: 1px solid var(--gold-deep);
+    background: var(--wine);
+    color: #ffffff;
+    border: 1px solid var(--wine);
     text-decoration: none;
     font-size: 0.8rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     transition: all 0.35s ease;
-    font-weight: 500;
+    font-weight: 600;
   }
   .btn-solid:hover { 
-    background: var(--amber); 
-    color: var(--ivory); 
-    border-color: var(--amber);
+    background: var(--coral); 
+    color: #101010; 
+    border-color: var(--coral);
   }
-  .btn-solid:hover svg { fill: var(--ivory); }
+  body.dark-mode .btn-solid {
+    background: var(--coral);
+    border-color: var(--coral);
+    color: #101010;
+  }
+  body.dark-mode .btn-solid:hover {
+    background: #a3d100;
+    border-color: #a3d100;
+  }
+  .btn-solid:hover svg { fill: #101010; }
 
-    /* FOOTER CORRIGIDO */
+  /* FOOTER */
   footer {
     border-top: 1px solid var(--line);
     padding: 44px 5%;
@@ -428,7 +487,9 @@
     font-size: 1.2rem; 
     text-decoration: none;
   }
+  footer .brand span { color: var(--coral); }
 
+  /* BOTÃO DARK MODE */
   .theme-toggle {
     position: fixed;
     bottom: 24px;
@@ -437,10 +498,10 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: var(--ink);
-    color: var(--amber);
-    border: 1px solid var(--gold);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    background: var(--wine);
+    color: #fff;
+    border: 1px solid var(--wine);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -449,14 +510,21 @@
   }
   .theme-toggle:hover {
     transform: scale(1.05);
-    background: var(--gold-deep);
-    color: var(--ivory);
+    background: var(--coral);
+    border-color: var(--coral);
+    color: #101010;
+  }
+  body.dark-mode .theme-toggle {
+    background: var(--coral);
+    border-color: var(--coral);
+    color: #101010;
   }
   .theme-toggle svg { width: 24px; height: 24px; fill: currentColor; }
   .theme-toggle .icon-sun { display: none; }
   body.dark-mode .theme-toggle .icon-sun { display: block; }
   body.dark-mode .theme-toggle .icon-moon { display: none; }
 
+  /* CHAT FLUTUANTE */
   .chat-widget {
     position: fixed;
     bottom: 24px;
@@ -469,10 +537,10 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: var(--ink);
-    color: var(--amber);
-    border: 1px solid var(--gold);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    background: var(--wine);
+    color: #fff;
+    border: 1px solid var(--wine);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -482,8 +550,14 @@
   }
   .chat-toggle:hover {
     transform: scale(1.05);
-    background: var(--gold-deep);
-    color: var(--ivory);
+    background: var(--coral);
+    border-color: var(--coral);
+    color: #101010;
+  }
+  body.dark-mode .chat-toggle {
+    background: var(--coral);
+    border-color: var(--coral);
+    color: #101010;
   }
   .chat-toggle::after {
     content: 'Dúvidas?';
@@ -524,17 +598,17 @@
   .chat-window.open { opacity: 1; visibility: visible; transform: translateY(0); }
 
   .chat-header {
-    background: #14100c;
-    color: #f7f2e9;
+    background: var(--wine);
+    color: #ffffff;
     padding: 16px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--gold-deep);
+    border-bottom: 1px solid var(--coral);
   }
-  .chat-header h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 500; margin: 0; }
-  .chat-header span { font-size: 0.7rem; color: var(--amber); display: block; font-family: 'Inter', sans-serif; }
-  .chat-close { background: transparent; border: none; color: #f7f2e9; font-size: 1.5rem; cursor: pointer; line-height: 1; }
+  .chat-header h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; margin: 0; }
+  .chat-header span { font-size: 0.7rem; color: rgba(255,255,255,0.8); display: block; font-family: 'Inter', sans-serif; }
+  .chat-close { background: transparent; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; line-height: 1; }
 
   .chat-body {
     flex: 1;
@@ -555,12 +629,16 @@
     border-bottom-left-radius: 2px;
     align-self: flex-start;
   }
-  body.dark-mode .message.bot { background: #1a1612; }
+  body.dark-mode .message.bot { background: var(--dark-card); }
   .message.user {
-    background: var(--ink);
-    color: var(--ivory);
+    background: var(--wine);
+    color: #ffffff;
     border-bottom-right-radius: 2px;
     align-self: flex-end;
+  }
+  body.dark-mode .message.user {
+    background: var(--coral);
+    color: #101010;
   }
 
   .typing { display: none; font-size: 0.8rem; color: var(--card-muted); font-style: italic; padding-left: 4px; }
@@ -579,16 +657,28 @@
   }
   .chat-option-btn {
     background: transparent;
-    border: 1px solid var(--gold-deep);
-    color: var(--gold-deep);
+    border: 1px solid var(--wine);
+    color: var(--wine);
     padding: 10px;
     border-radius: 6px;
     font-size: 0.8rem;
     text-align: left;
     cursor: pointer;
     transition: background 0.2s, color 0.2s;
+    font-weight: 500;
   }
-  .chat-option-btn:hover { background: var(--gold-deep); color: var(--ivory); }
+  body.dark-mode .chat-option-btn {
+    border-color: var(--coral);
+    color: var(--coral);
+  }
+  .chat-option-btn:hover { 
+    background: var(--wine); 
+    color: #fff; 
+  }
+  body.dark-mode .chat-option-btn:hover {
+    background: var(--coral);
+    color: #101010;
+  }
 
   .chat-wa-btn {
     display: flex;
@@ -797,24 +887,6 @@
       </div>
     </article>
 
-    <!-- ATUALIZADO: DISPONÍVEL -->
-    <article class="card" data-name="Ameerati Al Wataniah">
-      <div class="bottle">
-        <div class="stock-badge">Disponível</div>
-        <img src="imagens-perfumes/ameerati-al-wataniah.jph.webp" alt="Ameerati Al Wataniah" />
-      </div>
-      <div class="card-body">
-        <div class="brandline">Al Wataniah</div>
-        <h3>Ameerati</h3>
-        <p class="notes">Oriental floral — rosa, oud, âmbar e baunilha. Aroma clássico árabe com toque moderno.</p>
-        <div class="price"><small>Preço</small>R$ 194,99</div>
-        <button class="btn-outline buy" data-perfume="Ameerati" data-preco="R$ 194,99">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-          Comprar pelo WhatsApp
-        </button>
-      </div>
-    </article>
-
     <article class="card" data-name="Asad Lattafa">
       <div class="bottle">
         <div class="stock-badge">Disponível</div>
@@ -826,23 +898,6 @@
         <p class="notes">Amadeirado intenso — pimenta preta, tabaco, couro e baunilha. Forte e marcante.</p>
         <div class="price"><small>Preço</small>R$ 264,99</div>
         <button class="btn-outline buy" data-perfume="Asad" data-preco="R$ 264,99">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-          Comprar pelo WhatsApp
-        </button>
-      </div>
-    </article>
-
-    <article class="card" data-name="Durrat Al Aroos Al Wataniah">
-      <div class="bottle">
-        <div class="stock-badge">Disponível</div>
-        <img src="imagens-perfumes/durrat-all-aroos.jph.jpg" alt="Durrat Al Aroos Al Wataniah" />
-      </div>
-      <div class="card-body">
-        <div class="brandline">Al Wataniah</div>
-        <h3>Durrat Al Aroos</h3>
-        <p class="notes">Floral oriental — jasmim, rosa, baunilha e âmbar. Elegante e feminino.</p>
-        <div class="price"><small>Preço</small>R$ 189,99</div>
-        <button class="btn-outline buy" data-perfume="Durrat Al Aroos" data-preco="R$ 189,99">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
           Comprar pelo WhatsApp
         </button>
@@ -917,7 +972,7 @@
     <p>A Perfumaria Kada Sales Exclusiva nasceu pra trazer o que há de mais sofisticado na perfumaria mundial direto pra São José do Egito. Enquanto todo mundo usa os perfumes de sempre, a gente traz a intensidade e a fixação dos árabes — algo novo, exclusivo e marcante pro nosso Pernambuco.</p>
     <p>Cada frasco é testado e selecionado a dedo. Aqui você não compra só um perfume: você garante uma fragrância rara por essas bandas, que gruda na pele o dia inteiro e faz todo mundo virar pra trás pra perguntar o que você está usando.</p>
     <div class="stat-row">
-      <div class="stat"><b>15</b><span>Perfumes</span></div>
+      <div class="stat"><b>13</b><span>Perfumes</span></div>
       <div class="stat"><b>10H+</b><span>Fixação</span></div>
       <div class="stat"><b>100%</b><span>Originais</span></div>
     </div>
@@ -1163,4 +1218,3 @@
 
 </body>
 </html>
-```
